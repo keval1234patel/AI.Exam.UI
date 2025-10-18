@@ -38,8 +38,13 @@ registerForm: FormGroup;
   onSubmit() {
     if (this.registerForm.valid) {
       const payload: RegistrationRequest = this.registerForm.value;
+
       this.registrationService.register(payload).subscribe({
-        next: res => alert(res.data),
+        next: res => {
+          alert('Account created successfully!');
+          console.log('Decoded Token:', res.decodedToken);
+          console.log('Raw Response:', res.rawResponse);
+        },
         error: err => alert('Error: ' + err.message)
       });
     }

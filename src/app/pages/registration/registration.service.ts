@@ -3,21 +3,15 @@ import { AppConfig } from '../../config/app.config';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { GeneralResponse } from '../../models/GeneralResponse';
 
 export interface RegistrationRequest {
   email: string;
   password: string;
 }
 
-export interface RegistrationResponse {
-  isSuccess: boolean;
-  status: string;
-  messages: string[];
-  data: string;
-}
-
 export interface RegistrationResult {
-  rawResponse: RegistrationResponse;
+  rawResponse: GeneralResponse;
   decodedToken: RegistrationTokenPayload;
 }
 
@@ -39,7 +33,7 @@ export class RegistrationService {
   constructor(private http: HttpClient) {}
 
   register(payload: RegistrationRequest): Observable<RegistrationResult> {
-    return this.http.post<RegistrationResponse>(this.apiUrl, payload).pipe(
+    return this.http.post<GeneralResponse>(this.apiUrl, payload).pipe(
       map((response) => {
         console.log('Raw Response from Registration API:', response);
         const decoded = jwtDecode<RegistrationTokenPayload>(response.data);

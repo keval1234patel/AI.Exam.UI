@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 import { RegistrationComponent } from './pages/registration/registration.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  // { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: '', redirectTo: 'register', pathMatch: 'full' }
+  
+  // ✅ Protected routes
+  // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  // { path: 'exam', loadComponent: () => import('./components/exam/exam.component').then(m => m.ExamComponent), canActivate: [AuthGuard] },
 ];

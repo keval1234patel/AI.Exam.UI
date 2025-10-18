@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { RegistrationComponent } from './pages/registration/registration.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },

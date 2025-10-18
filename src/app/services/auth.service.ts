@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { RegistrationTokenPayload } from '../pages/registration/registration.service';
+import { RegistrationTokenPayload } from '../components/registration/registration.service';
 import { jwtDecode } from 'jwt-decode';
 
 const TOKEN_KEY = 'auth_token';

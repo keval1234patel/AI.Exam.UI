@@ -54,6 +54,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.errorMessage = '';
     if (this.loginForm.invalid) return;
 
     const payload: RegistrationRequest = this.loginForm.value;

@@ -1,0 +1,35 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow-sm" style="width: 350px;">
+    <h3 class="text-center mb-4">Login</h3>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="w-100 mb-3">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Enter your email">
+        <div class="text-danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          Valid email is required
+        </div>
+      </mat-form-field>
+
+      <mat-form-field class="w-100 mb-3">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="Enter password">
+        <div class="text-danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Password is required
+        </div>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="w-100 mb-2" type="submit"  [disabled]="loginForm.invalid">
+        Login
+      </button>
+
+      <div class="text-center text-danger mb-2">{{ errorMessage }}</div>
+
+      <div class="text-center">
+        <button mat-button color="accent" type="button" (click)="navigateToRegister()">
+          Create Account
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

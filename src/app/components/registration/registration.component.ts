@@ -17,6 +17,7 @@ import {
   RegistrationService,
 } from './registration.service';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -36,11 +37,13 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegistrationComponent {
   registerForm: FormGroup;
+  errorMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
     private registrationService: RegistrationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -57,8 +60,13 @@ export class RegistrationComponent {
           this.authService.saveAuthData(res.rawResponse.data, res.decodedToken);
           console.log('Stored user:', this.authService.getUser());
         },
-        error: (err) => alert('Error: ' + err.message),
+        error: (err) =>
+          (this.errorMessage = err.error?.message || 'Registration failed'),
       });
     }
+  }
+  
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 }

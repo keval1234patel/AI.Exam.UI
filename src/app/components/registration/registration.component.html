@@ -24,6 +24,14 @@
           <button mat-raised-button color="primary" class="w-100" [disabled]="registerForm.invalid">
             Create Account
           </button>
+
+          <div class="text-center text-danger mb-2">{{ errorMessage }}</div>
+
+          <div class="text-center">
+            <button mat-button color="accent" type="button" (click)="navigateToLogin()">
+              Login
+            </button>
+          </div>
         </form>
       </mat-card>
     </div>

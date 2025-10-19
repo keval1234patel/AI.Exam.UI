@@ -1,0 +1,11 @@
+.container {
+  background: #f8f9fa;
+}
+
+.card {
+  border-radius: 8px;
+}
+
+button {
+  text-transform: none;
+}

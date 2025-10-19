@@ -13,6 +13,6 @@ import { RouterModule } from '@angular/router';
 })
 export class TeacherDashboardComponent {
   constructor() {
-    alert('Teacher Dashboard Loaded');
+    
    }
 }

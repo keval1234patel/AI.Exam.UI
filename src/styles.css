@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+#toast-container {
+  top: 12px !important;
+  right: 12px !important;
+  bottom: auto !important;
+}
+
+#toast-container > div {
+  z-index: 9999 !important;
+}
+

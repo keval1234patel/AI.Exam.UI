@@ -32,12 +32,11 @@ export class RegistrationService {
 
   constructor(private http: HttpClient) {}
 
-  register(payload: RegistrationRequest): Observable<RegistrationResult> {
+  register(payload: RegistrationRequest): Observable<GeneralResponse> {
     return this.http.post<GeneralResponse>(this.apiUrl, payload).pipe(
       map((response) => {
         console.log('Raw Response from Registration API:', response);
-        const decoded = jwtDecode<RegistrationTokenPayload>(response.data);
-        return { rawResponse: response, decodedToken: decoded };
+        return response;
       })
     );
   }

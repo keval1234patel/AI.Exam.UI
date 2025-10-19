@@ -19,14 +19,13 @@ export class LoginService {
   login(payload: {
     email: string;
     password: string;
-  }): Observable<RegistrationResult> {
+  }): Observable<GeneralResponse> {
     return this.http
       .post<GeneralResponse>(`${this.apiUrl}`, payload)
       .pipe(
         map((response) => {
           console.log('Raw Response from Login API:', response);
-          const decoded = jwtDecode<RegistrationTokenPayload>(response.data);
-          return { rawResponse: response, decodedToken: decoded };
+          return response;
         })
       );
   }

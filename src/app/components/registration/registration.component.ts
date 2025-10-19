@@ -15,9 +15,13 @@ import { MatCardModule } from '@angular/material/card';
 import {
   RegistrationRequest,
   RegistrationService,
+  RegistrationTokenPayload,
 } from './registration.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { jwtDecode } from 'jwt-decode';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-registration',
@@ -43,7 +47,8 @@ export class RegistrationComponent {
     private fb: FormBuilder,
     private registrationService: RegistrationService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -52,20 +57,28 @@ export class RegistrationComponent {
   }
 
   onSubmit() {
+    this.errorMessage = '';
     if (this.registerForm.valid) {
       const payload: RegistrationRequest = this.registerForm.value;
       this.registrationService.register(payload).subscribe({
         next: (res) => {
-          alert('Account created successfully!');
-          this.authService.saveAuthData(res.rawResponse.data, res.decodedToken);
-          console.log('Stored user:', this.authService.getUser());
+          if (res.isSuccess) {
+            const decoded = jwtDecode<RegistrationTokenPayload>(res.data);
+            this.authService.saveAuthData(res.data, decoded);
+            this.notificationService.showSuccess('Registration successful');
+            console.log('Stored user:', this.authService.getUser());
+          } else {
+            this.errorMessage = res.messages[0];
+          }
         },
-        error: (err) =>
-          (this.errorMessage = err.error?.message || 'Registration failed'),
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Registration failed';
+          console.error('Registration error:', err);
+        },
       });
     }
   }
-  
+
   navigateToLogin() {
     this.router.navigate(['/login']);
   }

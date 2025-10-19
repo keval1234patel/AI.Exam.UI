@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -7,8 +12,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { catchError } from 'rxjs';
-import { RegistrationRequest, RegistrationService } from '../registration/registration.service';
+import {
+  RegistrationRequest,
+  RegistrationService,
+  RegistrationTokenPayload,
+} from '../registration/registration.service';
 import { LoginService } from './login.service';
+import { jwtDecode } from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +44,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private loginService: LoginService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -47,11 +60,20 @@ export class LoginComponent {
 
     this.loginService.login(payload).subscribe({
       next: (res) => {
-        this.authService.saveAuthData(res.rawResponse.data, res.decodedToken);
-        this.router.navigate(['/dashboard']);
+        if (res.isSuccess) {
+          const decoded = jwtDecode<RegistrationTokenPayload>(res.data);
+          this.authService.saveAuthData(res.data, decoded);
+          this.notificationService.showSuccess('Login successful');
+          console.log('Stored user:', this.authService.getUser());
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.errorMessage = res.messages[0];
+        }
       },
-      error: (err) =>
-        (this.errorMessage = err.error?.message || 'Login failed'),
+      error: (err) => {
+        this.errorMessage = err.error?.message || 'Login failed';
+        console.error('Login error:', err);
+      },
     });
   }
 

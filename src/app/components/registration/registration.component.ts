@@ -67,6 +67,13 @@ export class RegistrationComponent {
             this.authService.saveAuthData(res.data, decoded);
             this.notificationService.showSuccess('Registration successful');
             console.log('Stored user:', this.authService.getUser());
+
+            const role = this.authService.getUserRole();
+            if (role === 'Admin') {
+              this.router.navigate(['/teacher-dashboard']);
+            } else {
+              this.router.navigate(['/student-dashboard']);
+            }
           } else {
             this.errorMessage = res.messages[0];
           }

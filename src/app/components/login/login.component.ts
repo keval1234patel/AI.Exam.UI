@@ -66,7 +66,12 @@ export class LoginComponent {
           this.authService.saveAuthData(res.data, decoded);
           this.notificationService.showSuccess('Login successful');
           console.log('Stored user:', this.authService.getUser());
-          this.router.navigate(['/dashboard']);
+          const role = this.authService.getUserRole();
+          if (role === 'Admin') {
+            this.router.navigate(['/teacher-dashboard']);
+          } else {
+            this.router.navigate(['/student-dashboard']);
+          }
         } else {
           this.errorMessage = res.messages[0];
         }

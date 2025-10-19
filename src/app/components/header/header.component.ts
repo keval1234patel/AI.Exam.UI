@@ -14,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
-  userInitials = 'U'; // default placeholder, can derive from user name
+  userInitials = 'U';
 
   constructor(private authService: AuthService, private router: Router) {}
 

@@ -58,4 +58,38 @@ export class AuthService {
     if (!token) return false;
     return !this.isTokenExpired(token);
   }
+
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded?.Role || null;
+    } catch {
+      return null;
+    }
+  }
+
+  getUserFromToken() {
+    const token = this.getToken();
+    if (!token) return null;
+
+    const decoded: any = this.decodeToken(token);
+    return {
+      userId: decoded?.UserId,
+      role: decoded?.Role,
+      email: decoded?.EmailId,
+    };
+  }
+
+  decodeToken(token?: string): any {
+    const jwt = token || this.getToken();
+    if (!jwt) return null;
+    try {
+      return jwtDecode(jwt);
+    } catch (error) {
+      console.error('Invalid token', error);
+      return null;
+    }
+  }
 }

@@ -1,0 +1,18 @@
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.welcome-card {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  padding: 2rem;
+}
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}

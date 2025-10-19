@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-student-header',
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  templateUrl: './student-header.component.html',
+  styleUrl: './student-header.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class StudentHeaderComponent implements OnInit {
   isLoggedIn = false;
   userInitials = 'U';
 
@@ -29,3 +29,4 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 }
+

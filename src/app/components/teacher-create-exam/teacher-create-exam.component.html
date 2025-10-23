@@ -45,15 +45,29 @@
         </div>
       </div>
 
+      <!-- ✅ NEW EMAIL FIELD -->
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email IDs (comma, space, or newline separated)</mat-label>
+            <textarea matInput rows="3" placeholder="e.g. student1@example.com, student2@example.com"
+              formControlName="emailIDs"></textarea>
+            <mat-error *ngIf="examForm.get('emailIDs')?.hasError('required')">
+              At least one email is required.
+            </mat-error>
+            <mat-error *ngIf="examForm.get('emailIDs')?.hasError('invalidEmails')">
+              Please enter valid email addresses.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
       <hr />
       <h6><mat-icon>book</mat-icon> Subjects</h6>
 
       <div formArrayName="subjects">
-        <div
-          *ngFor="let subject of subjects.controls; let i = index"
-          [formGroupName]="i"
-          class="p-3 mb-3 border rounded shadow-sm bg-light"
-        >
+        <div *ngFor="let subject of subjects.controls; let i = index" [formGroupName]="i"
+          class="p-3 mb-3 border rounded shadow-sm bg-light">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <strong>Subject {{ i + 1 }}</strong>
             <button mat-icon-button color="warn" (click)="removeSubject(i)" *ngIf="subjects.length > 1">
@@ -105,7 +119,17 @@
                 </mat-error>
               </mat-form-field>
             </div>
+
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Instructions</mat-label>
+                <textarea matInput formControlName="additionalNotes"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
         </div>
       </div>
 

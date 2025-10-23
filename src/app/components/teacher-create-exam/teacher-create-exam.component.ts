@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -27,7 +35,7 @@ import { MatCardModule } from '@angular/material/card';
     MatNativeDateModule,
     MatIconModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
   ],
   templateUrl: './teacher-create-exam.component.html',
   styleUrls: ['./teacher-create-exam.component.css'],
@@ -38,18 +46,33 @@ export class TeacherCreateExamComponent {
   statusList = ['Draft', 'Published'];
   difficultyLevels = ['Easy', 'Medium', 'Hard'];
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private examService: ExamService,
     private toastr: ToastrService,
-    private router: Router) {
+    private router: Router
+  ) {
     this.examForm = this.fb.group({
       uniqueExamIdentification: ['', Validators.required],
       domainName: ['', Validators.required],
       expiryDate: ['', Validators.required],
-      emailIDs: this.fb.control([]),
+      emailIDs: ['', [Validators.required, this.emailListValidator]],
       additionalNotes: [''],
-      subjects: this.fb.array([this.createSubject()])
+      subjects: this.fb.array([this.createSubject()]),
     });
+  }
+
+  // ✅ Custom validator: requires at least 1 valid email
+  emailListValidator(control: AbstractControl): ValidationErrors | null {
+    const value = (control.value || '').trim();
+    if (!value) return { required: true };
+
+    const emails = value.split(/[\s,;]+/).filter((e: string) => e.length > 0);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const allValid = emails.every((email: string) => emailRegex.test(email));
+
+    return allValid && emails.length > 0 ? null : { invalidEmails: true };
   }
 
   get subjects(): FormArray {
@@ -62,7 +85,7 @@ export class TeacherCreateExamComponent {
       difficultyLevel: ['Easy', Validators.required],
       totalQuestions: [0, [Validators.required, Validators.min(1)]],
       totalSecondsToComplete: [0, [Validators.required, Validators.min(1)]],
-      additionalNotes: ['']
+      additionalNotes: [''],
     });
   }
 
@@ -73,7 +96,6 @@ export class TeacherCreateExamComponent {
   removeSubject(index: number): void {
     this.subjects.removeAt(index);
   }
-
 
   isInvalid(controlName: string, group?: FormGroup): boolean {
     const formGroup = group || this.examForm;
@@ -89,6 +111,10 @@ export class TeacherCreateExamComponent {
     }
 
     const formValue: NewExamRequestsDto = this.examForm.value;
+    formValue.emailIDs = String(formValue.emailIDs || '')
+      .split(/[\s,;]+/)
+      .filter((e) => e.trim().length > 0);
+
     this.examService.createExam(formValue).subscribe({
       next: (res) => {
         if (res.isSuccess) {
@@ -101,7 +127,7 @@ export class TeacherCreateExamComponent {
       error: (err) => {
         this.toastr.error('Something went wrong while creating the exam.');
         console.error(err);
-      }
+      },
     });
   }
 

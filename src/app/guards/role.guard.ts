@@ -18,7 +18,6 @@ export class RoleGuard {
       return true;
     }
 
-    // redirect if not authorized
     this.router.navigate(['/login']);
     return false;
   }

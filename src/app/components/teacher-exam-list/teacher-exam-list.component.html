@@ -1,0 +1,26 @@
+<div class="container py-4">
+  <div class="row g-4">
+    <div
+      class="col-md-4"
+      *ngFor="let exam of activeExams"
+      (click)="onExamClick(exam)"
+      style="cursor: pointer;"
+    >
+      <div class="card shadow-sm border-0 rounded-3 hover-card h-100">
+        <div class="card-body">
+          <h6 class="fw-semibold">{{ exam.uniqueExamIdentification }}</h6>
+          <p class="mb-1 text-muted small">
+            Total Students: <strong>{{ exam.emailIDs.length }}</strong>
+          </p>
+          <p class="mb-1 text-muted small">
+            Failed to send: <strong>{{ exam.failedEmailIDs?.length }}</strong>
+          </p>
+          <p class="mb-0 text-muted small">
+            Expiry Date:
+            <strong>{{ exam.expiryDate | date: 'MMM d, y' }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

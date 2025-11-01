@@ -3,6 +3,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
+import { TeacherExamListComponent } from './components/teacher-exam-list/teacher-exam-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,6 +31,10 @@ export const routes: Routes = [
       ),
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['Teacher'] },
+  //   children: [
+  //   { path: '', redirectTo: 'exams', pathMatch: 'full' },
+  //   { path: 'exams', component: TeacherExamListComponent },
+  // ]
   },
   {
     path: 'teacher-exam-create',

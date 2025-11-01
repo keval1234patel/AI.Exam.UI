@@ -35,7 +35,6 @@ export class TeacherExamListComponent implements OnInit {
       next: (res) => {
         if (res.isSuccess) {
           this.activeExams = res.data;
-          console.log('Fetched Exams:', this.activeExams);
         } else {
           this.toastr.error(res.messages.join(', '));
           console.error('Error fetching exams:', res.messages);
@@ -53,13 +52,5 @@ export class TeacherExamListComponent implements OnInit {
       '/teacher/exam-details',
       exam.id,
     ]);
-  }
-
-  getRandomInt(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  getRandomScore(): string {
-    return (70 + Math.random() * 15).toFixed(1);
   }
 }

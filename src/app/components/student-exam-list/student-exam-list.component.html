@@ -1,0 +1,32 @@
+<!-- exam-list.component.html -->
+<div class="container mt-4">
+  <div class="row g-4">
+    <div class="col-sm-6 col-md-4" *ngFor="let exam of activeExams" (click)="onExamClick(exam)">
+      <mat-card class="exam-card shadow-sm" style="cursor: pointer; transition: 0.3s;" matRipple>
+        <mat-card-header>
+          <mat-card-title class="fw-semibold"> {{ exam.examName }} ({{ exam.domain }})</mat-card-title>
+          <mat-card-subtitle class="text-success fw-medium">
+            {{ exam.examCompleted ? 'Completed' : 'Active' }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="mt-2">
+          <p><strong>Subjects:</strong> {{ getSubjectCount(exam) }}</p>
+          <p><strong>Subject Names:</strong> {{ getSubjectNames(exam) }}</p>
+
+          <p><strong>Score:</strong> {{ exam.score || 0 }}%</p>
+          <p>
+            <strong>Expiry Date:</strong>
+            {{ exam.expiryDate | date: 'mediumDate' }}
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button mat-stroked-button color="primary" (click)="onExamClick(exam); $event.stopPropagation()">
+            View Details
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,18 +1,13 @@
-.dashboard-container {
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
+/* exam-list.component.css */
+.exam-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.welcome-card {
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
-  padding: 2rem;
-}
-.actions {
-  margin-top: 1.5rem;
+.exam-icon {
+  background-color: #e8f0fe;
+  border-radius: 50%;
   display: flex;
-  gap: 1rem;
   justify-content: center;
+  align-items: center;
 }

@@ -36,6 +36,7 @@ export interface StudentExam extends CommonDBFields {
   studentId: string;
   studentEmailId: string;
   examCreatedByUserId: string;
+  examName: string;
   domain: string;
   additionalNotes: string;
   examLink: string;

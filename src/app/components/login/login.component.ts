@@ -64,7 +64,6 @@ export class LoginComponent {
         if (res.isSuccess) {
           const decoded = jwtDecode<RegistrationTokenPayload>(res.data);
           this.authService.saveAuthData(res.data, decoded);
-          this.notificationService.showSuccess('Login successful');
           const role = this.authService.getUserRole();
           if (role === 'Teacher') {
             this.router.navigate(['/teacher-dashboard']);

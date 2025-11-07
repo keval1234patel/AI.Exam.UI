@@ -28,4 +28,10 @@ export class ExamService {
       `${this.baseUrl}/GetAllExamsByStudentId`
     );
   }
+
+  GetSubjectDetailsByExamId(examId: string): Observable<GeneralResponse<StudentExam>> {
+    return this.http.get<GeneralResponse<StudentExam>>(
+      `${this.baseUrl}/GetSubjectDetailsByExamId/${examId}`
+    );
+  }
 }

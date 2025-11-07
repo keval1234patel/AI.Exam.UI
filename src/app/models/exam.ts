@@ -47,6 +47,29 @@ export interface StudentExam extends CommonDBFields {
   expiryDate: string;
   subjects: StudentExamSubjectsQandAData[];
 }
+export function createEmptyStudentExam(): StudentExam {
+  return {
+    // CommonDBFields (if you have them)
+    id: '',
+    createdAt: '',
+
+    // StudentExam fields
+    examRequestId: '',
+    studentId: '',
+    studentEmailId: '',
+    examCreatedByUserId: '',
+    examName: '',
+    domain: '',
+    additionalNotes: '',
+    examLink: '',
+    emailSent: false,
+    linkClicked: false,
+    score: 0,
+    examCompleted: false,
+    expiryDate: '',
+    subjects: []
+  };
+}
 
 export interface StudentExamSubjectsQandAData extends SubjectRequestDto {
   examRetryCount: number;

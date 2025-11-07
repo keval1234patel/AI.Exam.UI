@@ -55,7 +55,7 @@ export class StudentExamListComponent implements OnInit {
   }
 
   onExamClick(exam: StudentExam): void {
-    this.router.navigate(['/student/exam-details', exam.id]);
+    this.router.navigate(['/student-exam-details', exam.id]);
   }
 
   getSubjectNames(exam: StudentExam): string {

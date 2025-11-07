@@ -1,0 +1,48 @@
+<div class="container my-4">
+  <mat-card class="mb-4 shadow-sm">
+    <mat-card-header>
+      <mat-card-title class="h5">
+        {{ exam.examName || 'Untitled Exam' }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Domain: {{ exam.domain }} | Expiry: {{ exam.expiryDate | date: 'mediumDate' }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p><strong>Notes:</strong> {{ exam.additionalNotes }}</p>
+      <p>
+        <strong>Score:</strong> {{ exam.score }} |
+        <strong>Completed:</strong> {{ exam.examCompleted ? 'Yes' : 'No' }}
+      </p>
+
+      <!-- Subjects Section -->
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3" *ngFor="let subject of exam.subjects">
+          <mat-card class="subject-card shadow-sm h-100">
+            <mat-card-header>
+              <mat-card-title>{{ subject.subjectName }}</mat-card-title>
+              <mat-card-subtitle>{{ subject.difficultyLevel }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <p><strong>Total Questions:</strong> {{ subject.totalQuestions }}</p>
+              <p><strong>Duration:</strong> {{ subject.totalSecondsToComplete }} sec</p>
+              <p><strong>Score:</strong> {{ subject.score }}</p>
+              <p><strong>Notes:</strong> {{ subject.additionalNotes }}</p>
+              <p>
+                <strong>Status:</strong>
+                {{ subject.examStatus === 0 ? 'Not Started' : 'Completed' }}
+              </p>
+            </mat-card-content>
+
+            <mat-card-actions>
+              <button mat-raised-button color="primary">Start</button>
+              <button mat-button color="accent">View Details</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,10 @@
+.timer-box {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  background: transparent;
+  color: red;
+  font-size: 26px;
+  font-weight: bold;
+  z-index: 9999;
+}

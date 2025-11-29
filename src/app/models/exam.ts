@@ -110,3 +110,8 @@ export interface StartExamRequest {
   ExamId: string;
   SubjectId: string;
 }
+
+export interface ExamsSubjectsQuestionsData {
+    questions: Question[];
+    totalSecondsToComplete: number;
+}

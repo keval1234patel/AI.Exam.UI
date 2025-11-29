@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import { TimerComponent } from '../timer/timer.component';
 
 @Component({
   selector: 'app-student-exam-questions',
@@ -26,6 +27,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatButtonModule,
     MatIcon,
     RouterModule,
+    TimerComponent
   ],
   templateUrl: './student-exam-questions.component.html',
   styleUrl: './student-exam-questions.component.css',
@@ -35,6 +37,7 @@ export class StudentExamQuestionsComponent implements OnInit {
   loading = false;
   @Input() examId!: string;
   @Input() subjectId!: string;
+  totalSecondsToComplete!: number;
 
   private route = inject(ActivatedRoute);
   constructor(
@@ -58,8 +61,10 @@ export class StudentExamQuestionsComponent implements OnInit {
 
     this.examService.StartExamBySubjectId(payload).subscribe({
       next: (res) => {
+        this.loading = false;
         if (res.isSuccess) {
-          this.questions = res.data;
+          this.questions = res.data.questions;
+          this.totalSecondsToComplete = res.data.totalSecondsToComplete;
         } else {
           this.toastr.error(res.messages.join(', '));
           console.error(
@@ -69,12 +74,15 @@ export class StudentExamQuestionsComponent implements OnInit {
         }
       },
       error: (error) => {
+        this.loading = false;
         this.toastr.error('Something went wrong while creating exam.');
         console.error(error);
-      },
-      complete: () => {
-        this.loading = false;
-      },
+      }
     });
+  }
+
+  onTimeOver() {
+    console.log('Timer ended!');
+    // Your logic : auto-submit exam, show popup etc.
   }
 }

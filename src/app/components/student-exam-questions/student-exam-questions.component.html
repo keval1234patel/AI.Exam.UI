@@ -79,3 +79,10 @@
     <p>Loading questions...</p>
   </div>
 </ng-template>
+
+<ng-container *ngIf="!loading && questions.length > 0 && totalSecondsToComplete > 0">
+<app-timer 
+   [seconds]="totalSecondsToComplete"
+   (timeUp)="onTimeOver()">
+</app-timer>
+</ng-container>

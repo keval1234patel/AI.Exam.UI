@@ -83,6 +83,6 @@ export class StudentExamQuestionsComponent implements OnInit {
 
   onTimeOver() {
     console.log('Timer ended!');
-    // Your logic : auto-submit exam, show popup etc.
+    // Disable page and auto-submit answers logic can be implemented here
   }
 }

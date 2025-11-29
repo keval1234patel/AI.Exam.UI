@@ -54,5 +54,14 @@ export const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['Student', 'Teacher'] },
   },
+  {
+    path: 'student-exam-questions/:examId/:subjectId',
+    loadComponent: () =>
+      import('./components/student-exam-questions/student-exam-questions.component').then(
+        (m) => m.StudentExamQuestionsComponent
+      ),
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['Student', 'Teacher'] },
+  },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../config/app.config';
-import { ExamsDetailsDto, NewExamRequestsDto, StudentExam } from '../models/exam';
+import { ExamsDetailsDto, NewExamRequestsDto, Question, StartExamRequest, StudentExam } from '../models/exam';
 import { GeneralResponse } from '../models/GeneralResponse';
 
 @Injectable({
@@ -33,5 +33,9 @@ export class ExamService {
     return this.http.get<GeneralResponse<StudentExam>>(
       `${this.baseUrl}/GetSubjectDetailsByExamId/${examId}`
     );
+  }
+
+  StartExamBySubjectId(req: StartExamRequest): Observable<GeneralResponse<Question[]>> {
+    return this.http.post<GeneralResponse<Question[]>>(this.baseUrl + '/StartExamBySubjectId', req);
   }
 }

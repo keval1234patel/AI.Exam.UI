@@ -90,8 +90,11 @@ export enum ExamStatus {
 }
 
 export interface Question {
+  id: number;
+  questionType: string;  // MCSS, MCMS, TF, COP, CW, SA, LAD
   q: string;
   a: string;
+  options?: string[] | null;
   score: number;
 }
 
@@ -99,4 +102,11 @@ export interface CommonDBFields {
   id: string;
   createdAt: string;
 }
+
 //#endregion
+
+
+export interface StartExamRequest {
+  ExamId: string;
+  SubjectId: string;
+}

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { createEmptyStudentExam, StudentExam } from '../../models/exam';
+import { createEmptyStudentExam, StudentExam, StudentExamSubjectsQandAData } from '../../models/exam';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ExamService } from '../../services/exam.service';
@@ -45,7 +45,7 @@ export class StudentExamSubjectsListComponent implements OnInit {
       });
   }
 
-  onExamClick(exam: StudentExam): void {
-    this.router.navigate(['/student-exam-details', exam.id]);
+  onStartExam(exam: StudentExamSubjectsQandAData): void {
+    this.router.navigate(['/student-exam-questions', this.id, exam.id]);
   }
 }

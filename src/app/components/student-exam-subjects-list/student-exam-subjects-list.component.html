@@ -40,8 +40,8 @@
                         </mat-card-content>
 
                         <mat-card-actions>
-                            <button mat-raised-button color="primary" *ngIf="subject.examStatus === 0">Start</button>
-                            <button mat-button color="accent">View Details</button>
+                            <button mat-raised-button color="primary" *ngIf="subject.examStatus === 0" (click)="onStartExam(subject)">Start</button>
+                            <button mat-button color="accent" *ngIf="subject.examStatus != 0">View Details</button>
                         </mat-card-actions>
                     </mat-card>
                 </div>

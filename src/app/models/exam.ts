@@ -94,6 +94,7 @@ export interface Question {
   questionType: string;  // MCSS, MCMS, TF, COP, CW, SA, LAD
   q: string;
   a: string;
+  StudentAnswer: string;
   options?: string[] | null;
   score: number;
 }
@@ -114,4 +115,10 @@ export interface StartExamRequest {
 export interface ExamsSubjectsQuestionsData {
     questions: Question[];
     totalSecondsToComplete: number;
+}
+
+export interface SubmitExamRequest {
+  ExamId: string;
+  SubjectId: string;
+  Questions: Question[];
 }

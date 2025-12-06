@@ -1,88 +1,85 @@
-<div class="container mt-4" *ngIf="!loading; else loadingTpl">
+{{questions | json}}
+<div [class.disabled-page]="isPageDisabled">
+  <div class="container mt-4" *ngIf="!loading; else loadingTpl">
 
-  {{questions | json}}
-  <div *ngFor="let q of questions" class="card mb-4 shadow-sm">
-    <div class="card-body">
+    <div *ngFor="let q of questions" class="card mb-4 shadow-sm">
+      <div class="card-body">
 
-      <h5 class="card-title">Q{{ q.id }}. {{ q.q }}</h5>
-      <span class="badge bg-primary">{{ q.questionType }}</span>
-      <hr>
+        <h5 class="card-title">Q{{ q.id }}. {{ q.q }}</h5>
+        <span class="badge bg-primary">{{ q.questionType }}</span>
+        <hr>
 
-      <!-- MCSS – Multiple Choice Single Select -->
-      <div *ngIf="q.questionType === 'MCSS'">
-        <mat-radio-group>
-          <mat-radio-button *ngFor="let op of q.options" [value]="op" class="d-block mb-1">
-            {{ op }}
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
-
-      <!-- MCMS – Multiple Choice Multi Select -->
-      <div *ngIf="q.questionType === 'MCMS'">
-        <div *ngFor="let op of q.options" class="form-check">
-          <input 
-            class="form-check-input"
-            type="checkbox"
-            
-          >
-          <!-- [checked]="q.a?.includes(op)"
-            (change)="onMCMSChanged(q, op, $event)" -->
-          <label class="form-check-label">{{ op }}</label>
+        <!-- MCSS – Multiple Choice Single Select -->
+        <div *ngIf="q.questionType === 'MCSS'">
+          <mat-radio-group [(ngModel)]="q.StudentAnswer" name="q{{q.id}}">
+            <mat-radio-button *ngFor="let op of q.options" [value]="op" class="d-block mb-1">
+              {{ op }}
+            </mat-radio-button>
+          </mat-radio-group>
         </div>
-      </div>
 
-      <!-- True / False -->
-      <div *ngIf="q.questionType === 'TF'">
-        <mat-radio-group>
-          <mat-radio-button value="True">True</mat-radio-button>
-          <mat-radio-button value="False" class="ms-3">False</mat-radio-button>
-        </mat-radio-group>
-      </div>
+        <!-- MCMS – Multiple Choice Multi Select -->
+        <div *ngIf="q.questionType === 'MCMS'">
+          <div *ngFor="let op of q.options" class="form-check">
+            <input type="checkbox"
+           class="form-check-input"
+           (change)="onMCMSChange(q, op, $event)"> 
+           <!-- [checked]="q.StudentAnswer?.includes(op)" -->
+            <label class="form-check-label">{{ op }}</label>
+          </div>
+        </div>
 
-      <!-- COP – Code Output Prediction -->
-      <div *ngIf="q.questionType === 'COP'">
-        <mat-form-field appearance="outline" class="w-100">
-          <textarea matInput rows="3"></textarea>
-        </mat-form-field>
-      </div>
+        <!-- True / False -->
+        <div *ngIf="q.questionType === 'TF'">
+          <mat-radio-group [(ngModel)]="q.StudentAnswer" name="q{{q.id}}">
+            <mat-radio-button value="True">True</mat-radio-button>
+            <mat-radio-button value="False" class="ms-3">False</mat-radio-button>
+          </mat-radio-group>
+        </div>
 
-      <!-- SA – Short Answer -->
-      <div *ngIf="q.questionType === 'SA'">
-        <mat-form-field appearance="outline" class="w-100">
-          <input matInput>
-        </mat-form-field>
-      </div>
+        <!-- COP – Code Output Prediction -->
+        <div *ngIf="q.questionType === 'COP'">
+          <mat-form-field appearance="outline" class="w-100">
+            <textarea matInput rows="3" [(ngModel)]="q.StudentAnswer"></textarea>
+          </mat-form-field>
+        </div>
 
-      <!-- LAD – Long Answer -->
-      <div *ngIf="q.questionType === 'LAD'">
-        <mat-form-field appearance="outline" class="w-100">
-          <textarea matInput rows="5"></textarea>
-        </mat-form-field>
-      </div>
+        <!-- SA – Short Answer -->
+        <div *ngIf="q.questionType === 'SA'">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [(ngModel)]="q.StudentAnswer">
+          </mat-form-field>
+        </div>
 
-      <!-- CW – Code Writing -->
-      <div *ngIf="q.questionType === 'CW'">
-        <mat-form-field appearance="outline" class="w-100">
-          <textarea matInput rows="8"></textarea>
-        </mat-form-field>
-      </div>
+        <!-- LAD – Long Answer -->
+        <div *ngIf="q.questionType === 'LAD'">
+          <mat-form-field appearance="outline" class="w-100">
+            <textarea matInput rows="5" [(ngModel)]="q.StudentAnswer"></textarea>
+          </mat-form-field>
+        </div>
 
+        <!-- CW – Code Writing -->
+        <div *ngIf="q.questionType === 'CW'">
+          <mat-form-field appearance="outline" class="w-100">
+            <textarea matInput rows="8" [(ngModel)]="q.StudentAnswer"></textarea>
+          </mat-form-field>
+        </div>
+
+      </div>
     </div>
+
   </div>
 
+  <!-- Loading Template -->
+  <ng-template #loadingTpl>
+    <div class="text-center mt-5">
+      <!-- <mat-spinner></mat-spinner> -->
+      <p>Loading questions...</p>
+    </div>
+  </ng-template>
+
+  <ng-container *ngIf="!loading && questions.length > 0 && totalSecondsToComplete > 0">
+    <app-timer [seconds]="totalSecondsToComplete" (timeUp)="onTimeOver()">
+    </app-timer>
+  </ng-container>
 </div>
-
-<!-- Loading Template -->
-<ng-template #loadingTpl>
-  <div class="text-center mt-5">
-    <!-- <mat-spinner></mat-spinner> -->
-    <p>Loading questions...</p>
-  </div>
-</ng-template>
-
-<ng-container *ngIf="!loading && questions.length > 0 && totalSecondsToComplete > 0">
-<app-timer 
-   [seconds]="totalSecondsToComplete"
-   (timeUp)="onTimeOver()">
-</app-timer>
-</ng-container>

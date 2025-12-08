@@ -63,5 +63,14 @@ export const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['Student', 'Teacher'] },
   },
+  {
+    path: 'QandA/:examId/:subjectId',
+    loadComponent: () =>
+      import('./components/View-Mode/questions-answers-details/questions-answers-details.component').then(
+        (m) => m.QuestionsAnswersDetailsComponent
+      ),
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['Student', 'Teacher'] },
+  },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];

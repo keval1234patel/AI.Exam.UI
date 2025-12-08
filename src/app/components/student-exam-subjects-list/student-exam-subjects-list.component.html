@@ -41,7 +41,8 @@
 
                         <mat-card-actions>
                             <button mat-raised-button color="primary" *ngIf="subject.examStatus === 0" (click)="onStartExam(subject)">Start</button>
-                            <button mat-button color="accent" *ngIf="subject.examStatus != 0">View Details</button>
+                            <button mat-button color="accent" *ngIf="subject.examStatus != 0"
+                            (click)="onViewQandAClick(subject)">View Details</button>
                         </mat-card-actions>
                     </mat-card>
                 </div>

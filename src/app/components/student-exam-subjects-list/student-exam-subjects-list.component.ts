@@ -48,4 +48,8 @@ export class StudentExamSubjectsListComponent implements OnInit {
   onStartExam(exam: StudentExamSubjectsQandAData): void {
     this.router.navigate(['/student-exam-questions', this.id, exam.id]);
   }
+
+  onViewQandAClick(exam: StudentExamSubjectsQandAData): void {
+    this.router.navigate(['/QandA', exam.id, this.id]);
+  }
 }

@@ -122,3 +122,22 @@ export interface SubmitExamRequest {
   SubjectId: string;
   Questions: Question[];
 }
+
+export type QuestionType = 
+  | "MCSS" 
+  | "MCMS" 
+  | "TF" 
+  | "COP" 
+  | "SA" 
+  | "LAD" 
+  | "CW";
+
+  export const QUESTION_TYPE_LABELS: Record<string, string> = {
+  "MCSS": "Multiple Choice – Single Select",
+  "MCMS": "Multiple Choice – Multi Select",
+  "TF": "True / False",
+  "COP": "Code Output Prediction",
+  "SA": "Short Answer",
+  "LAD": "Long Answer / Descriptive",
+  "CW": "Code Writing"
+};

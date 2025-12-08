@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../config/app.config';
-import { ExamsDetailsDto, ExamsSubjectsQuestionsData, NewExamRequestsDto, Question, StartExamRequest, StudentExam, SubmitExamRequest } from '../models/exam';
+import { ExamsDetailsDto, ExamsSubjectsQuestionsData, NewExamRequestsDto, Question, StartExamRequest, StudentExam, StudentExamSubjectsQandAData, SubmitExamRequest } from '../models/exam';
 import { GeneralResponse } from '../models/GeneralResponse';
 
 @Injectable({
@@ -38,7 +38,14 @@ export class ExamService {
   StartExamBySubjectId(req: StartExamRequest): Observable<GeneralResponse<ExamsSubjectsQuestionsData>> {
     return this.http.post<GeneralResponse<ExamsSubjectsQuestionsData>>(this.baseUrl + '/StartExamBySubjectId', req);
   }
+
   CompleteExamBySubjectId(payload: SubmitExamRequest): Observable<GeneralResponse> {
     return this.http.post<GeneralResponse>(this.baseUrl + '/CompleteExamBySubjectId', payload);
+  }
+
+  GetSubjectsQuestionsAndAnswersAfterExamCompletedInViewMode(req: StartExamRequest): Observable<GeneralResponse<StudentExamSubjectsQandAData>> {
+    return this.http.get<GeneralResponse<StudentExamSubjectsQandAData>>(
+      `${this.baseUrl}/GetSubjectsQuestionsAndAnswersAfterExamCompletedInViewMode/${req.ExamId}/${req.SubjectId}`
+    );
   }
 }

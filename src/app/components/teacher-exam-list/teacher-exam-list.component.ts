@@ -48,9 +48,6 @@ export class TeacherExamListComponent implements OnInit {
   }
 
   onExamClick(exam: ExamsDetailsDto): void {
-    this.router.navigate([
-      '/teacher/exam-details',
-      exam.id,
-    ]);
+    this.router.navigate(['/teacher-exam-details', exam.id]);
   }
 }

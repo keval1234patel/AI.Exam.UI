@@ -94,9 +94,9 @@ export class StudentExamQuestionsComponent implements OnInit {
   }
 
   onMCMSChange(q: Question, option: string, ev: any) {
-    if (!q.StudentAnswer) q.StudentAnswer = ''; // Converted to string at final stage
+    if (!q.studentAnswer) q.studentAnswer = ''; // Converted to string at final stage
 
-    let selected: string[] = q.StudentAnswer.split(',').filter((x) => x);
+    let selected: string[] = q.studentAnswer.split(',').filter((x) => x);
 
     if (ev.target.checked) {
       selected.push(option);
@@ -104,7 +104,7 @@ export class StudentExamQuestionsComponent implements OnInit {
       selected = selected.filter((x) => x !== option);
     }
 
-    q.StudentAnswer = selected.join(','); // backend expects comma separated string
+    q.studentAnswer = selected.join(','); // backend expects comma separated string
   }
 
   onTimeOver() {

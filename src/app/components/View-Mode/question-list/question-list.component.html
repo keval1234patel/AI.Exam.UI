@@ -4,32 +4,40 @@
       <h3 class="font-semibold text-gray-700">Questions</h3>
       <span class="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">{{ questions.length }} Total</span>
     </div>
+
     <div class="overflow-y-auto flex-1 p-2 space-y-2">
-      <button *ngFor="let q of questions; let i = index" (click)="onSelect(q.id)"
-        class="w-full text-left p-3 rounded-lg flex items-start gap-3 transition-all duration-200 group" [ngClass]="selectedId === q.id 
-        ? 'bg-indigo-50 border-indigo-200 shadow-sm ring-1 ring-indigo-300' 
-        : 'hover:bg-gray-50 border border-transparent'">
+      <button
+        *ngFor="let q of questions; let i = index"
+        (click)="onSelect(q.id)"
+        class="w-full text-left p-3 rounded-lg flex items-start gap-3 transition-all duration-200 group"
+        [ngClass]="selectedId === q.id 
+          ? 'bg-indigo-50 border-indigo-200 shadow-sm ring-1 ring-indigo-300' 
+          : 'hover:bg-gray-50 border border-transparent'"
+      >
 
+       <!-- *ngIf="isVerified" -->
         <div class="mt-0.5 shrink-0">
-          <!-- <lucide-icon *ngIf="isCorrect(q)" name="check-circle" class="w-5 h-5 text-green-500"></lucide-icon> -->
-          <!-- <lucide-icon *ngIf="!isCorrect(q)" name="x-circle" class="w-5 h-5 text-red-500"></lucide-icon> -->
-
-          <!-- <lucide-check-circle *ngIf="isCorrect(q)" class="w-5 h-5 text-green-500"></lucide-check-circle>
-<lucide-x-circle *ngIf="!isCorrect(q)" class="w-5 h-5 text-red-500"></lucide-x-circle> -->
+          <mat-icon *ngIf="isCorrect(q)" class="w-5 h-5 text-green-500" fontIcon="check_circle"></mat-icon>
+          <mat-icon *ngIf="!isCorrect(q)" class="w-5 h-5 text-red-500" fontIcon="cancel"></mat-icon>
         </div>
 
         <div class="flex-1 min-w-0">
           <div class="flex justify-between items-start">
-            <p class="text-sm font-medium truncate w-full"
-              [ngClass]="selectedId === q.id ? 'text-indigo-900' : 'text-gray-700'">
+            <p
+              class="text-sm font-medium truncate w-full"
+              [ngClass]="selectedId === q.id ? 'text-indigo-900' : 'text-gray-700'"
+            >
               Q{{ i + 1 }}: {{ q.questionType }}
             </p>
           </div>
+
           <p class="text-xs text-gray-500 truncate mt-1 pr-2 opacity-80 group-hover:opacity-100 transition-opacity">
             {{ q.q }}
           </p>
         </div>
+
         <div *ngIf="selectedId === q.id" class="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2 shrink-0"></div>
+
       </button>
     </div>
   </div>

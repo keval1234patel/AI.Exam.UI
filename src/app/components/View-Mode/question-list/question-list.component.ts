@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question } from '../../../models/exam';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule } from 'lucide-angular';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-question-list',
   standalone: true,
   imports: [
     CommonModule,
-    LucideAngularModule
+    MatIconModule
   ],
   templateUrl: './question-list.component.html',
   styleUrls: ['./question-list.component.css'],
@@ -16,6 +16,7 @@ import { LucideAngularModule } from 'lucide-angular';
 export class QuestionListComponent {
   @Input({ required: true }) questions: Question[] = [];
   @Input() selectedId: number = 0;
+  @Input() isVerified: boolean = false;
   @Output() select = new EventEmitter<number>();
 
   onSelect(id: number) {
@@ -31,6 +32,6 @@ export class QuestionListComponent {
             .sort()
             .join(',')
         : '';
-    return normalize(q.a) === normalize(q.StudentAnswer);
+    return normalize(q.a) === normalize(q.studentAnswer);
   }
 }

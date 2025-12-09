@@ -77,6 +77,7 @@ export interface StudentExamSubjectsQandAData extends SubjectRequestDto {
   examCompletedDateTime: string;
   score: number;
   examStatus: ExamStatus;
+  isVerified: boolean;
   qandA: Question[];
 }
 
@@ -94,7 +95,7 @@ export interface Question {
   questionType: string;  // MCSS, MCMS, TF, COP, CW, SA, LAD
   q: string;
   a: string;
-  StudentAnswer: string;
+  studentAnswer: string;
   options?: string[] | null;
   score: number;
 }

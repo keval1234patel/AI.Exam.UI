@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-questions-answers-details',
   standalone: true,
-  imports: [CommonModule, ExamHeaderComponent, QuestionListComponent],
+  imports: [CommonModule, ExamHeaderComponent, QuestionListComponent, QuestionDetailComponent],
   templateUrl: './questions-answers-details.component.html',
   styleUrl: './questions-answers-details.component.css',
 })

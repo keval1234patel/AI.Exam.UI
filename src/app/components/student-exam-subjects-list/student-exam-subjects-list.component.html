@@ -13,11 +13,11 @@
         </mat-card-header>
 
         <mat-card-content>
-            <p><strong>Notes:</strong> {{ exam.additionalNotes }}</p>
+            <!-- <p><strong>Notes:</strong> {{ exam.additionalNotes }}</p>
             <p>
                 <strong>Score:</strong> {{ exam.score }} |
                 <strong>Completed:</strong> {{ exam.examCompleted ? 'Yes' : 'No' }}
-            </p>
+            </p> -->
 
             <!-- Subjects Section -->
             <div class="row mt-3">
@@ -31,8 +31,8 @@
                         <mat-card-content>
                             <p><strong>Total Questions:</strong> {{ subject.totalQuestions }}</p>
                             <p><strong>Duration:</strong> {{ subject.totalSecondsToComplete }} sec</p>
-                            <p><strong>Score:</strong> {{ subject.score }}</p>
-                            <p><strong>Notes:</strong> {{ subject.additionalNotes }}</p>
+                            <p *ngIf="subject.isVerified"><strong>Score:</strong> {{ subject.score }}</p>
+                            <!-- <p><strong>Notes:</strong> {{ subject.additionalNotes }}</p> -->
                             <p>
                                 <strong>Status:</strong>
                                 {{ subject.examStatus === 0 ? 'Not Started' : 'Completed' }}

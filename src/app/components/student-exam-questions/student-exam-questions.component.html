@@ -11,7 +11,7 @@
 
         <!-- MCSS – Multiple Choice Single Select -->
         <div *ngIf="q.questionType === 'MCSS'">
-          <mat-radio-group [(ngModel)]="q.StudentAnswer" name="q{{q.id}}">
+          <mat-radio-group [(ngModel)]="q.studentAnswer" name="q{{q.id}}">
             <mat-radio-button *ngFor="let op of q.options" [value]="op" class="d-block mb-1">
               {{ op }}
             </mat-radio-button>
@@ -24,14 +24,14 @@
             <input type="checkbox"
            class="form-check-input"
            (change)="onMCMSChange(q, op, $event)"> 
-           <!-- [checked]="q.StudentAnswer?.includes(op)" -->
+           <!-- [checked]="q.studentAnswer?.includes(op)" -->
             <label class="form-check-label">{{ op }}</label>
           </div>
         </div>
 
         <!-- True / False -->
         <div *ngIf="q.questionType === 'TF'">
-          <mat-radio-group [(ngModel)]="q.StudentAnswer" name="q{{q.id}}">
+          <mat-radio-group [(ngModel)]="q.studentAnswer" name="q{{q.id}}">
             <mat-radio-button value="True">True</mat-radio-button>
             <mat-radio-button value="False" class="ms-3">False</mat-radio-button>
           </mat-radio-group>
@@ -40,28 +40,28 @@
         <!-- COP – Code Output Prediction -->
         <div *ngIf="q.questionType === 'COP'">
           <mat-form-field appearance="outline" class="w-100">
-            <textarea matInput rows="3" [(ngModel)]="q.StudentAnswer"></textarea>
+            <textarea matInput rows="3" [(ngModel)]="q.studentAnswer"></textarea>
           </mat-form-field>
         </div>
 
         <!-- SA – Short Answer -->
         <div *ngIf="q.questionType === 'SA'">
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [(ngModel)]="q.StudentAnswer">
+            <input matInput [(ngModel)]="q.studentAnswer">
           </mat-form-field>
         </div>
 
         <!-- LAD – Long Answer -->
         <div *ngIf="q.questionType === 'LAD'">
           <mat-form-field appearance="outline" class="w-100">
-            <textarea matInput rows="5" [(ngModel)]="q.StudentAnswer"></textarea>
+            <textarea matInput rows="5" [(ngModel)]="q.studentAnswer"></textarea>
           </mat-form-field>
         </div>
 
         <!-- CW – Code Writing -->
         <div *ngIf="q.questionType === 'CW'">
           <mat-form-field appearance="outline" class="w-100">
-            <textarea matInput rows="8" [(ngModel)]="q.StudentAnswer"></textarea>
+            <textarea matInput rows="8" [(ngModel)]="q.studentAnswer"></textarea>
           </mat-form-field>
         </div>
 

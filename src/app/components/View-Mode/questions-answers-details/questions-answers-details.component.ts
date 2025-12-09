@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { StudentExamSubjectsQandAData } from '../../../models/exam';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ExamService } from '../../../services/exam.service';
 import { ExamHeaderComponent } from '../exam-header/exam-header.component';
@@ -16,26 +16,27 @@ import { CommonModule } from '@angular/common';
   styleUrl: './questions-answers-details.component.css',
 })
 export class QuestionsAnswersDetailsComponent implements OnInit {
+  examId!: string;
+  subjectId!: string;
+  private route = inject(ActivatedRoute);
   constructor(
     private router: Router,
     private examService: ExamService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
+    this.examId = this.route.snapshot.paramMap.get('examId')!;
+    this.subjectId = this.route.snapshot.paramMap.get('subjectId')!;
     this.loadExamData();
   }
   examData: StudentExamSubjectsQandAData = {} as StudentExamSubjectsQandAData;
   selectedQuestionId = 0;
   loadExamData(): void {
-    // Get examId and subjectId from route params
-    const examId = this.router.url.split('/').pop() || '';
-    const subjectId = this.router.url.split('/').slice(-2, -1)[0] || '';
-
     this.examService
       .GetSubjectsQuestionsAndAnswersAfterExamCompletedInViewMode({
-        ExamId: examId,
-        SubjectId: subjectId,
+        ExamId: this.examId,
+        SubjectId: this.subjectId,
       })
       .subscribe({
         next: (response) => {
@@ -54,7 +55,7 @@ export class QuestionsAnswersDetailsComponent implements OnInit {
   }
 
   get selectedQuestion() {
-    return this.examData.qandA.find((q) => q.id === this.selectedQuestionId);
+    return this.examData?.qandA?.find((q) => q.id === this.selectedQuestionId);
   }
 
   onQuestionSelect(id: number) {

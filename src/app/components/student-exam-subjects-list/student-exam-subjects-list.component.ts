@@ -49,7 +49,7 @@ export class StudentExamSubjectsListComponent implements OnInit {
     this.router.navigate(['/student-exam-questions', this.id, exam.id]);
   }
 
-  onViewQandAClick(exam: StudentExamSubjectsQandAData): void {
-    this.router.navigate(['/QandA', exam.id, this.id]);
+  onViewQandAClick(Subject: StudentExamSubjectsQandAData): void {
+    this.router.navigate(['/QandA', this.id, Subject.id]);
   }
 }

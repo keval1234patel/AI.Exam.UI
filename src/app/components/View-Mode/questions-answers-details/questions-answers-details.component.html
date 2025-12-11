@@ -1,48 +1,54 @@
-<div class="min-h-screen bg-gray-100 pb-12">
-    <!-- Top Navigation Bar -->
-    <nav class="bg-indigo-600 text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <span class="font-bold text-xl tracking-tight">ExamPortal</span>
-                <div class="flex items-center space-x-4">
-                    <span class="text-indigo-200 text-sm">Welcome, Student</span>
-                    <div
-                        class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-sm font-bold border border-indigo-400">
-                        S
-                    </div>
-                </div>
-            </div>
+<div class="min-h-screen bg-light pb-5">
+  <div class="container mt-4">
+
+    <!-- HEADER -->
+    <app-exam-header [data]="examData" class="mb-4 d-block"></app-exam-header>
+
+    <!-- MAIN GRID -->
+    <div class="row g-4">
+
+      <!-- LEFT SIDE: QUESTION LIST -->
+      <div class="col-12 col-lg-4 col-xl-3">
+
+        <div class="card shadow-sm border-0 rounded-3 h-100">
+          <div class="card-body p-0">
+            <app-question-list 
+              [questions]="examData.qandA"
+              [selectedId]="selectedQuestionId"
+              [isVerified]="examData.isVerified"
+              (select)="onQuestionSelect($event)">
+            </app-question-list>
+          </div>
         </div>
-    </nav>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <app-exam-header [data]="examData"></app-exam-header>
+      </div>
 
-        <div class="flex flex-col lg:flex-row gap-6">
+      <!-- RIGHT SIDE: QUESTION DETAIL -->
+      <div class="col-12 col-lg-8 col-xl-9">
 
-            <div class="w-full lg:w-1/3 xl:w-1/4">
-                <app-question-list 
-                [questions]="examData.qandA" 
-                [selectedId]="selectedQuestionId" 
-                [isVerified]="examData.isVerified"
-                (select)="onQuestionSelect($event)">
-                </app-question-list>
-            </div>
+        <div class="card shadow-sm border-0 rounded-3 h-100">
 
-            <div class="w-full lg:w-2/3 xl:w-3/4">
-                <app-question-detail 
-                *ngIf="selectedQuestion; else emptyState" 
-                [question]="selectedQuestion"
-                [isVerified]="examData.isVerified">
-                </app-question-detail>
+          <div class="card-body p-4">
+            <app-question-detail 
+              *ngIf="selectedQuestion; else emptyState"
+              [question]="selectedQuestion"
+              [isVerified]="examData.isVerified">
+            </app-question-detail>
 
-                <ng-template #emptyState>
-                    <div class="flex items-center justify-center h-64 bg-white rounded-lg shadow text-gray-500">
-                        Select a question to view details
-                    </div>
-                </ng-template>
-            </div>
+            <!-- EMPTY STATE -->
+            <ng-template #emptyState>
+              <div class="d-flex flex-column align-items-center justify-content-center text-secondary py-5">
+                <mat-icon fontIcon="help_outline" class="mb-2" style="font-size: 42px;"></mat-icon>
+                <p class="fs-6">Select a question to view details</p>
+              </div>
+            </ng-template>
+          </div>
 
         </div>
+
+      </div>
+
     </div>
+
+  </div>
 </div>

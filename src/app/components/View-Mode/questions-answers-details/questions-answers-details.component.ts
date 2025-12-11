@@ -7,11 +7,12 @@ import { ExamHeaderComponent } from '../exam-header/exam-header.component';
 import { QuestionDetailComponent } from '../question-detail/question-detail.component';
 import { QuestionListComponent } from '../question-list/question-list.component';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-questions-answers-details',
   standalone: true,
-  imports: [CommonModule, ExamHeaderComponent, QuestionListComponent, QuestionDetailComponent],
+  imports: [CommonModule, ExamHeaderComponent, QuestionListComponent, QuestionDetailComponent, MatIconModule],
   templateUrl: './questions-answers-details.component.html',
   styleUrl: './questions-answers-details.component.css',
 })

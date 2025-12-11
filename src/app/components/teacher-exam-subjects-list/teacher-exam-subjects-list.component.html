@@ -1,1 +1,76 @@
-<p>teacher-exam-subjects-list works!</p>
+<div class="container mt-4" *ngIf="data">
+
+  <!-- ===== EXAM HEADER ===== -->
+  <mat-card class="mb-4">
+    <mat-card-header>
+      <mat-card-title>{{ data.examData.uniqueExamIdentification }}</mat-card-title>
+      <mat-card-subtitle>{{ data.examData.domainName }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="row mt-3">
+
+        <div class="col-md-3">
+          <strong>Total Students:</strong>
+          {{ data.examData.emailIDs.length || 0 }}
+        </div>
+
+        <div class="col-md-3">
+          <strong>Created At:</strong>
+          {{ data.examData.createdAt | date:'medium' }}
+        </div>
+
+        <div class="col-md-3">
+          <strong>Expiry Date:</strong>
+          {{ data.examData.expiryDate | date:'medium' }}
+        </div>
+
+        <div class="col-md-12 mt-3">
+          <strong>Notes:</strong> {{ data.examData.additionalNotes }}
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- ===== SUBJECT CARDS ===== -->
+  <div class="row">
+    <div
+      class="col-md-4 mb-4"
+      *ngFor="let s of data.subjectData"
+    >
+      <mat-card
+        class="h-100"
+        (click)="onSubjectClick(s.subject)"
+        style="cursor: pointer;"
+      >
+        <mat-card-header>
+          <mat-card-title>{{ s.subject.subjectName }}</mat-card-title>
+          <mat-card-subtitle>
+            Difficulty: {{ s.subject.difficultyLevel }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="mt-2">
+
+          <div><strong>Total Questions:</strong> {{ s.subject.totalQuestions }}</div>
+
+          <div><strong>Time (sec):</strong> {{ s.subject.totalSecondsToComplete }}</div>
+
+          <div class="mt-2">
+            <strong>Notes:</strong>
+            <div>{{ s.subject.additionalNotes }}</div>
+          </div>
+
+          <div class="mt-2">
+            <strong>Students Attended:</strong>
+            {{ s.totalStudentAttended }}
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+    </div>
+  </div>
+
+</div>

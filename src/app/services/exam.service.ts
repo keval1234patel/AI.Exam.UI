@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../config/app.config';
-import { ExamsDetailsDto, ExamsSubjectsQuestionsData, NewExamRequestsDto, Question, StartExamRequest, StudentExam, StudentExamSubjectsQandAData, SubmitExamRequest } from '../models/exam';
+import { ExamsDetailsDto, ExamsSubjectsQuestionsData, NewExamRequestsDto, Question, StartExamRequest, StudentExam, StudentExamSubjectsQandAData, SubmitExamRequest, SubjectsDetailsDto } from '../models/exam';
 import { GeneralResponse } from '../models/GeneralResponse';
 
 @Injectable({
@@ -46,6 +46,12 @@ export class ExamService {
   GetSubjectsQuestionsAndAnswersAfterExamCompletedInViewMode(req: StartExamRequest): Observable<GeneralResponse<StudentExamSubjectsQandAData>> {
     return this.http.get<GeneralResponse<StudentExamSubjectsQandAData>>(
       `${this.baseUrl}/GetSubjectsQuestionsAndAnswersAfterExamCompletedInViewMode/${req.ExamId}/${req.SubjectId}`
+    );
+  }
+
+  GetSubjectsDetailsByExamIdForTeacher(examId: string): Observable<GeneralResponse<SubjectsDetailsDto>> {
+    return this.http.get<GeneralResponse<SubjectsDetailsDto>>(
+      `${this.baseUrl}/GetSubjectsDetailsByExamIdForTeacher/${examId}`
     );
   }
 }

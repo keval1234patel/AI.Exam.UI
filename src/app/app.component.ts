@@ -15,14 +15,23 @@ import { TeacherHeaderComponent } from './components/teacher-header/teacher-head
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LoaderComponent, MatIconModule, MatButtonModule, StudentHeaderComponent, TeacherHeaderComponent, MatDialogModule,
-  MatProgressSpinnerModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    LoaderComponent,
+    MatIconModule,
+    MatButtonModule,
+    StudentHeaderComponent,
+    TeacherHeaderComponent,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'AI.Exam.UI';
-role: string = '';
+  roles: string = '';
   showHeader = true;
 
   constructor(private router: Router, private authService: AuthService) {
@@ -38,8 +47,7 @@ role: string = '';
     const token = this.authService.getToken();
     if (token) {
       const decoded = this.authService.decodeToken(token);
-      this.role = decoded?.Role;
+      this.roles = decoded?.Roles;
     }
   }
-  
 }

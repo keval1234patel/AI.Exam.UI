@@ -4,7 +4,7 @@
       class="col-md-4"
       *ngFor="let exam of activeExams"
       (click)="onExamClick(exam)"
-      style="cursor: pointer;"
+      style="cursor: pointer; position: relative; z-index: 1;"
     >
       <div class="card shadow-sm border-0 rounded-3 hover-card h-100">
         <div class="card-body">

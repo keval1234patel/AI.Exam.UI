@@ -2,11 +2,20 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Question, QUESTION_TYPE_LABELS } from '../../../models/exam';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-question-detail',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule,
+  ],
   templateUrl: './question-detail.component.html',
   styleUrl: './question-detail.component.css',
 })

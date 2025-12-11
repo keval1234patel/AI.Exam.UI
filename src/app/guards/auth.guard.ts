@@ -24,11 +24,11 @@ export class AuthGuard implements CanActivate {
      // ✅ If logged in and trying to access login/register, redirect to dashboard
     if (this.authService.isAuthenticated() && (currentUrl === '/login' || currentUrl === '/register')) {
       const decoded = this.authService.decodeToken(token!);
-      const role = decoded?.Role;
+      const roles = decoded?.Roles;
 
-      if (role === 'Teacher') {
+      if (roles === 'Teacher') {
         this.router.navigate(['/teacher-dashboard']);
-      } else if (role === 'Student') {
+      } else if (roles === 'Student') {
         this.router.navigate(['/student-dashboard']);
       }
       return false;

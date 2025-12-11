@@ -59,12 +59,12 @@ export class AuthService {
     return !this.isTokenExpired(token);
   }
 
-  getUserRole(): string | null {
+  getUserRoles(): string | null {
     const token = this.getToken();
     if (!token) return null;
     try {
       const decoded: any = jwtDecode(token);
-      return decoded?.Role || null;
+      return decoded?.Roles || null;
     } catch {
       return null;
     }
@@ -77,7 +77,7 @@ export class AuthService {
     const decoded: any = this.decodeToken(token);
     return {
       userId: decoded?.UserId,
-      role: decoded?.Role,
+      roles: decoded?.Roles,
       email: decoded?.EmailId,
     };
   }

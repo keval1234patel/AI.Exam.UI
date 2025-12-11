@@ -15,6 +15,7 @@ export interface NewExamRequestsDto {
   additionalNotes?: string;
   expiryDate: Date;
   subjects: SubjectRequestDto[];
+  createdAt?: string;
 }
 
 export interface ExamsDetailsDto {
@@ -142,3 +143,14 @@ export type QuestionType =
   "LAD": "Long Answer / Descriptive",
   "CW": "Code Writing"
 };
+
+export interface SubjectsDetailsDto{
+  examData: NewExamRequestsDto;
+  subjectData: SubjectsAdditionalDetailsDto[];
+}
+
+export interface SubjectsAdditionalDetailsDto{
+  subject: SubjectRequestDto;
+  totalStudentAttended: number;
+  averageScore: number;
+}

@@ -11,10 +11,10 @@ export class RoleGuard {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const token = this.authService.getToken();
     const decoded = this.authService.decodeToken(token!);
-    const userRole = decoded?.Role;
+    const userRoles = decoded?.Roles;
     const allowedRoles = route.data['roles'] as string[];
 
-    if (allowedRoles.includes(userRole)) {
+    if (allowedRoles.includes(userRoles)) {
       return true;
     }
 

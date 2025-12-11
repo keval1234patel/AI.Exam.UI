@@ -68,8 +68,8 @@ export class RegistrationComponent {
             this.notificationService.showSuccess('Registration successful');
             console.log('Stored user:', this.authService.getUser());
 
-            const role = this.authService.getUserRole();
-            if (role === 'Teacher') {
+            const roles = this.authService.getUserRoles();
+            if (roles === 'Teacher') {
               this.router.navigate(['/teacher-dashboard']);
             } else {
               this.router.navigate(['/student-dashboard']);

@@ -17,7 +17,7 @@ export interface RegistrationResult {
 
 export interface RegistrationTokenPayload {
   UserId: string;
-  Role: 'Student' | 'Teacher';
+  Roles: 'Student' | 'Teacher';
   EmailId: string;
   exp: number; // expiry timestamp
   iss: string; // issuer

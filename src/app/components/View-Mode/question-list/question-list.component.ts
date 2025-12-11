@@ -2,13 +2,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question } from '../../../models/exam';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-question-list',
   standalone: true,
   imports: [
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule,
   ],
   templateUrl: './question-list.component.html',
   styleUrls: ['./question-list.component.css'],

@@ -1,44 +1,67 @@
 <ng-container *ngIf="questions && questions.length > 0">
-  <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full max-h-[80vh]">
-    <div class="p-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
-      <h3 class="font-semibold text-gray-700">Questions</h3>
-      <span class="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">{{ questions.length }} Total</span>
-    </div>
 
-    <div class="overflow-y-auto flex-1 p-2 space-y-2">
-      <button
-        *ngFor="let q of questions; let i = index"
-        (click)="onSelect(q.id)"
-        class="w-full text-left p-3 rounded-lg flex items-start gap-3 transition-all duration-200 group"
-        [ngClass]="selectedId === q.id 
-          ? 'bg-indigo-50 border-indigo-200 shadow-sm ring-1 ring-indigo-300' 
-          : 'hover:bg-gray-50 border border-transparent'"
-      >
+  <mat-card class="h-100" style="max-height: 80vh; overflow: hidden;">
+    
+    <!-- Header -->
+    <mat-card-header>
+      <mat-card-title>Questions</mat-card-title>
+      <mat-card-subtitle>{{ questions.length }} Total</mat-card-subtitle>
+    </mat-card-header>
 
-       <!-- *ngIf="isVerified" -->
-        <div class="mt-0.5 shrink-0">
-          <mat-icon *ngIf="isCorrect(q)" class="w-5 h-5 text-green-500" fontIcon="check_circle"></mat-icon>
-          <mat-icon *ngIf="!isCorrect(q)" class="w-5 h-5 text-red-500" fontIcon="cancel"></mat-icon>
-        </div>
+    <mat-divider></mat-divider>
 
-        <div class="flex-1 min-w-0">
-          <div class="flex justify-between items-start">
-            <p
-              class="text-sm font-medium truncate w-full"
-              [ngClass]="selectedId === q.id ? 'text-indigo-900' : 'text-gray-700'"
+    <!-- List -->
+    <mat-card-content class="p-0" style="height: calc(80vh - 80px); overflow-y: auto;">
+
+      <mat-list>
+
+        <mat-list-item
+          *ngFor="let q of questions; let i = index"
+          (click)="onSelect(q.id)"
+          class="mb-1 rounded"
+          style="cursor: pointer;"
+          [ngClass]="selectedId === q.id ? 'bg-light border-start border-primary' : ''"
+        >
+          <div class="d-flex w-100">
+
+            <!-- Correct / Wrong Icon -->
+            <mat-icon
+              class="me-3"
+              [ngClass]="isCorrect(q) ? 'text-success' : 'text-danger'"
             >
-              Q{{ i + 1 }}: {{ q.questionType }}
-            </p>
+              {{ isCorrect(q) ? 'check_circle' : 'cancel' }}
+            </mat-icon>
+
+            <!-- Question Text -->
+            <div class="flex-grow-1">
+
+              <div class="d-flex justify-content-between">
+                <span 
+                  class="fw-semibold"
+                  [ngClass]="selectedId === q.id ? 'text-primary' : ''"
+                >
+                  Q{{ i + 1 }}: {{ q.questionType }}
+                </span>
+              </div>
+
+              <small class="text-muted d-block text-truncate">
+                {{ q.q }}
+              </small>
+
+            </div>
+
+            <!-- Selected Indicator -->
+            <div *ngIf="selectedId === q.id" class="ms-2 mt-2">
+              <span class="badge bg-primary">&nbsp;</span>
+            </div>
+
           </div>
 
-          <p class="text-xs text-gray-500 truncate mt-1 pr-2 opacity-80 group-hover:opacity-100 transition-opacity">
-            {{ q.q }}
-          </p>
-        </div>
+        <mat-divider *ngIf="i < questions.length - 1"></mat-divider>
+        </mat-list-item>
+      </mat-list>
 
-        <div *ngIf="selectedId === q.id" class="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2 shrink-0"></div>
+    </mat-card-content>
+  </mat-card>
 
-      </button>
-    </div>
-  </div>
 </ng-container>

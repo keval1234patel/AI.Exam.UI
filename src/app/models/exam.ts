@@ -154,3 +154,21 @@ export interface SubjectsAdditionalDetailsDto{
   totalStudentAttended: number;
   averageScore: number;
 }
+
+export interface SubjectData {
+  subjectName: string
+  examId: string
+  subjectId: string
+  createdOn: Date;
+  expiredOn: string;
+  studentsData: StudentsSubjectsData[]
+}
+
+export interface StudentsSubjectsData {
+  emailId: string
+  examStatus: number
+  score: number
+  totalSecondsToComplete: number
+  examCompletionDate: string
+  isVerified: boolean
+}

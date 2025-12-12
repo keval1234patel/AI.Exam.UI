@@ -54,6 +54,6 @@ export class TeacherExamSubjectsListComponent {
   }
 
   onSubjectClick(subject: any) {
-    this.router.navigate(['/subject-detail', subject.id]);
+    this.router.navigate(['/teacher-exam-subjects-students-list', this.examId, subject.id]);
   }
 }

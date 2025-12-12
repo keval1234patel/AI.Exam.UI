@@ -1,0 +1,4 @@
+.student-row:hover {
+  background-color: #f1f5ff;
+  transition: 0.2s ease;
+}

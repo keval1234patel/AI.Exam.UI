@@ -169,6 +169,7 @@ export interface StudentsSubjectsData {
   examStatus: number
   score: number
   totalSecondsToComplete: number
-  examCompletionDate: string
+  startedOn?: string
+  completedOn: string
   isVerified: boolean
 }

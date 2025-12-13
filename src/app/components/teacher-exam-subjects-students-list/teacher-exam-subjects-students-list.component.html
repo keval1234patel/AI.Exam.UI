@@ -23,41 +23,43 @@
 
     <ul class="list-group list-group-flush">
 
-      <li 
-        *ngFor="let s of students" 
+      <li *ngFor="let s of students"
         class="list-group-item d-flex justify-content-between align-items-center py-3 student-row"
-        (click)="openStudentDetails(s.emailId)"
-        style="cursor:pointer;"
-      >
+        (click)="openStudentDetails(s.emailId)" style="cursor:pointer;">
         <div>
           <h6 class="fw-bold mb-1">{{ s.emailId }}</h6>
 
           <div class="text-muted small">
             Status:
             <span class="badge bg-secondary ms-1">
-              {{ s.examStatus }}
+              {{ isExamCompleted(s.examStatus) ? 'Completed' : 'Not Completed' }}
             </span>
 
             <br>
 
-            Completed:
-            <span class="ms-1">
-              {{ s.examCompletionDate | date:'medium' }}
-            </span>
+
+
           </div>
         </div>
 
         <div class="text-end">
 
-          <span 
-            class="badge px-3 py-2 fs-6"
-            [ngClass]="s.score >= 0 ? 'bg-success' : 'bg-danger'"
-          >
-            {{ s.score >= 0 ? 'Score: ' + s.score : 'Not Attempted' }}
+          <span class="badge px-3 py-2 fs-6" *ngIf="s.score >= 0" [ngClass]="s.score >= 0 ? 'bg-success' : 'bg-danger'">
+            {{ 'Score: ' + s.score }}
           </span>
 
           <div class="text-muted small mt-1">
-            {{ s.totalSecondsToComplete }} sec
+            <ng-container *ngIf="isExamCompleted(s.examStatus); else notStarted">
+              Attempted on:
+              <span class="ms-1">
+                {{ s.startedOn | date:'medium' }}
+              </span>
+              <br>
+              Duration:
+              <span class="badge bg-info text-dark ms-1">
+                {{ getSecondsDiff(s.startedOn, s.completedOn) }} sec
+              </span>
+            </ng-container>
           </div>
         </div>
 
@@ -65,5 +67,9 @@
 
     </ul>
   </div>
-
+  <ng-template #notStarted>
+    <div class="text-muted small">
+      Not Started
+    </div>
+  </ng-template>
 </div>
